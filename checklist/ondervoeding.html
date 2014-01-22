@@ -11,30 +11,30 @@
                 
                 <script src="../js/jquery.js"></script>
                 <script src="../js/jquery.mobile.js"></script>
-                <script src="../js/websql.js"></script>
-                <script src="../js/main.js"></script>
-                <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
-                
-                <script>
-                
-                	$(function(){
-                		$('select').each(function() {
-                			var vraag = $(this).attr('id');
-							app.store.findVraagByName(vraag, function(item) {
-                				$("#"+vraag).val(item.antwoord).slider('refresh');
-                			});
-						});
-                	});
-                
-                
-                	
-                </script>
+               	<script src="../js/main.js"></script>
+               	<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
         </head>
-        <body>                
+        <body>         
+        	       
                 <div data-role="page" data-theme="a">
                         <div data-role="header" data-position="inline">
                                 <h1>Zorg Voor Beter</h1>
                         </div>
+                        
+                        <script src="../js/websql.js"></script>
+                       	<script>
+                			db.transaction(createTable);
+                			
+                			$("select").each(function(){
+                				var vraag = $(this).attr("id");
+                				findVraag(vraag, function(result) {
+                					$("#"+vraag).val(result.antwoord).slider('refresh');
+                				});	
+                			});
+                			
+                			
+                		</script>
+                		
                         <div data-role="content" data-theme="a">
                                <h1>Ondervoeding 1/12</h1>
 			                   <div data-role="fieldcontain">
