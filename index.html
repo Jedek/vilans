@@ -1,56 +1,39 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="format-detection" content="telephone=no" />
-        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-        <link rel="stylesheet" type="text/css" href="css/index.css" />
-		<link rel="stylesheet" href="js/jquerymobile/jquery.mobile-1.4.0.min.css" />
-		<script src="js/jquery.js"></script>
-		<script src="js/jquerymobile/jquery.mobile-1.4.0.min.js"></script>
-        <title></title>
-        
-        <script>
-		$(function(){
-		    // Bind the swiperightHandler callback function to the swipe event on div.box
-		  $( "#listitem" ).on( "swipeleft", swiperightHandler );
-		 
-		  // Callback function references the event target and adds the 'swiperight' class to it
-		  function swiperightHandler( event ){
-		     $.mobile.changePage("#two", {transition: "slide"});
-		  }
-		});
-        </script>
-    </head>
-    <body>
-        <!-- Start of first page: #one -->
-		<div data-role="page" id="splash" class="transition page stage-center">
-		        <div class="app">
-        	<div class="logo"> </div>
-            <h1>Risico Signalering</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Bezig laden applicatie</p>
-                <p class="event received">Swipe naar links ></p>
-                <ul data-role="listview" data-inset="true" data-theme="c">
-                	<li id="listitem">Swipe Right to view Page 1</li>
-            	</ul>
-            </div>
-        </div>
-		
-		</div><!-- /page one -->
-		
-		
-		<!-- Start of second page: #two -->
-		<div data-role="page" id="two" class="transition page stage-right">
-		main menu
-		</div><!-- /page two -->
-		
+        <head>
+                <meta charset="utf-8">
+                <meta name="viewport" content="width=device-width,initial-scale=1">
+                <title>jQuery Mobile Bootstrap Theme</title>
+                <link rel="stylesheet" href="theme/Bootstrap.css">
+                <link rel="stylesheet" href="theme/jquery.mobile.icons.min.css" />
+                <link rel="stylesheet" href="theme/jquery.mobile.css" />
+                
+                <script src="js/jquery.js"></script>
+                <script src="js/jquery.mobile.js"></script>
+        </head>
+        <body>                
+                <div data-role="page" data-theme="a">
+                        <div data-role="header" data-position="inline">
+                                <h1>Zorg Voor Beter</h1>
+                                                                <div data-role="navbar">
+                                        <ul>
+                                                <li><a href="index.html" data-icon="home" class="ui-btn-active" data-transition="slide">Home</a></li>
+                                                <li><a href="example/buttons.html" data-icon="star" data-transition="slide">Buttons</a></li>
+                                                <li><a href="example/listviews.html" data-icon="grid">Lists</a></li>
+                                                <li><a href="example/nav.html" data-icon="search">Nav</a></li>
+                                                <li><a href="example/forms.html" data-icon="gear">Forms</a></li>
+                                        </ul>
+                                </div>
 
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript">
-            app.initialize();
-        </script>
-    </body>
+                        </div>
+                        <div data-role="content" data-theme="a">
+                               <a href="checklist.html" data-role="button" data-theme="a">Checklist</a>
+                               <a href="index.html" data-role="button" data-theme="a">Quickscan</a>
+                               <a href="index.html" data-role="button" data-theme="b" data-icon="search">Zoek door risicogebieden</a>
+                               <a href="index.html" data-role="button" data-theme="e">Mijn Checklist</a>
+							   <a href="index.html" data-role="button" data-theme="f">Instellingen</a>
+							   <a href="index.html" data-role="button" data-theme="c">Afsluiten</a>
+                        </div>
+                </div>
+        </body>
 </html>
