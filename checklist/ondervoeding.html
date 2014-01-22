@@ -23,13 +23,19 @@
                         
                         <script src="../js/websql.js"></script>
                        	<script>
-                			db.transaction(createTable);
-                			
+                       		connect();
                 			$("select").each(function(){
                 				var vraag = $(this).attr("id");
+                				
+                				
                 				findVraag(vraag, function(result) {
                 					$("#"+vraag).val(result.antwoord).slider('refresh');
                 				});	
+                				
+                				$(this).change(function(){
+                					var antwoord = $(this).val();
+                					updateVraag(vraag, antwoord);
+                				});
                 			});
                 			
                 			
@@ -71,8 +77,8 @@
 							   
 								<div class="ui-body ui-body-b">
 									<fieldset class="ui-grid-a">
-										<div class="ui-block-a"><button type="submit" data-icon="delete" data-theme="c">Stoppen</button></div>
-										<div class="ui-block-b"><button type="submit" data-icon="arrow-r" data-theme="d">Volgende</button></div>
+										<div class="ui-block-a"><a href="../index.html" data-role="button" data-theme="c" data-icon="delete">Stoppen</a></div>
+										<div class="ui-block-b"><a href="depressie.html" data-role="button" data-theme="d" data-icon="arrow-r">Volgende</a></div>
 								    </fieldset>
 								</div>
 

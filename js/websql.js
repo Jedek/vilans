@@ -1,48 +1,68 @@
-var db = window.openDatabase("ZorgDB", "1.0", "Vilans DB", 1000000);
+var db;
 
-function createTable(tx) {
-	 tx.executeSql('DROP TABLE IF EXISTS ondervoeding');
-	    var sql = "CREATE TABLE IF NOT EXISTS ondervoeding ( " +
-	        "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-	        "vraag VARCHAR(50), " +
-	        "antwoord INTEGER )";
-	    tx.executeSql(sql, null,
-	            function() {
-	                console.log('Create table success');
-	            },
-	            function(tx, error) {
-	                alert('Create table error: ' + error.message);
-	            });
-	            
-	                    var vragen = [
-	            {"vraag": "afvallen", "antwoord": 1},
-	            {"vraag": "losser", "antwoord": 0},
-	            {"vraag": "eetlust", "antwoord": 1},
-	            {"vraag": "hulp", "antwoord": 0}
-	        ];
-	        
-	var l = vragen.length;
-	var sql = "INSERT OR REPLACE INTO ondervoeding " +
-	    "(vraag, antwoord) " +
-	    "VALUES (?, ?)";
-	var e;
-	for (var i = 0; i < l; i++) {
-	    e = vragen[i];
-	    tx.executeSql(sql, [e.vraag, e.antwoord],
-	            function() {
-	                console.log('INSERT success');
-	            },
-	            function(tx, error) {
-	                alert('INSERT error: ' + error.message);
-	            });
-	}
+function populateDB(tx) {
+	tableExists("vragen", function(data){
+		if(data == false) {
+			db.transaction(function(tx){
+				tx.executeSql('CREATE TABLE IF NOT EXISTS vragen (id INTEGER PRIMARY KEY AUTOINCREMENT, vraag VARCHAR(50), antwoord INTEGER)');
+				tx.executeSql('INSERT OR REPLACE INTO vragen (vraag, antwoord) VALUES ("afvallen", 0)');
+				tx.executeSql('INSERT OR REPLACE INTO vragen (vraag, antwoord) VALUES ("losser", 0)');
+				tx.executeSql('INSERT OR REPLACE INTO vragen (vraag, antwoord) VALUES ("eetlust", 0)');
+				tx.executeSql('INSERT OR REPLACE INTO vragen (vraag, antwoord) VALUES ("hulp", 0)');
+				tx.executeSql('INSERT OR REPLACE INTO vragen (vraag, antwoord) VALUES ("verdrietig", 0)');
+				tx.executeSql('INSERT OR REPLACE INTO vragen (vraag, antwoord) VALUES ("boos", 0)');
+				tx.executeSql('INSERT OR REPLACE INTO vragen (vraag, antwoord) VALUES ("interesse", 0)');
+			});
+		}
+	});
+}
+
+function tableExists(table, callback) {
+	console.log("checking table availability in DB");
+	db.transaction(function(tx){
+		tx.executeSql("SELECT name FROM sqlite_master WHERE type='table' AND name='"+table+"';",null, function(tx, results){
+			callback(results.rows.length === 1 ? true : false);
+		});
+	});
+}
+
+// Wait for PhoneGap to load
+//
+document.addEventListener("deviceready", onDeviceReady, false);
+
+// PhoneGap is ready
+//
+function onDeviceReady() {
+	connect();
+	db.transaction(populateDB);
+}
+
+function connect() {
+	db = window.openDatabase("VilansDB", "1.0", "Zorg voor Beter DB", 200000);
+}
+
+function addVraag(vraag) {
+	db.transaction(function(tx){tx.executeSql('INSERT OR REPLACE INTO vragen (vraag, antwoord) VALUES ("'+vraag+'", 0)');});
 }
 
 function findVraag(vraag, callback) {
+	
+	var sql = "SELECT * FROM vragen WHERE vraag = '"+vraag+"'";	
+
+	db.transaction(function(tx) {
+		    tx.executeSql(sql, [], function(tx, results) {
+		        callback(results.rows.length === 1 ? results.rows.item(0) : null);
+		    });
+		},
+		function(error) {
+		    alert("Transaction Error: " + error.message);
+		    }
+		);
+}
+
+function updateVraag(vraag, antwoord) {
 	this.db.transaction(function(tx) {
-	    tx.executeSql("SELECT * FROM ondervoeding WHERE vraag = '"+vraag+"'", [], function(tx, results) {
-	        callback(results.rows.length === 1 ? results.rows.item(0) : null);
-	    });
+	    tx.executeSql("UPDATE vragen SET antwoord = "+antwoord+" WHERE vraag = '"+vraag+"'");
 	},
 	function(error) {
 	    alert("Transaction Error: " + error.message);

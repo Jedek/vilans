@@ -11,51 +11,64 @@
                 
                 <script src="../js/jquery.js"></script>
                 <script src="../js/jquery.mobile.js"></script>
-                <script type="text/javascript" charset="utf-8" src="../cordova.js"></script>
+               	<script src="../js/main.js"></script>
+               	<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
         </head>
-        <body>                
+        <body>         
+        	       
                 <div data-role="page" data-theme="a">
                         <div data-role="header" data-position="inline">
                                 <h1>Zorg Voor Beter</h1>
                         </div>
+                        
+                        <script src="../js/websql.js"></script>
+                       	<script>
+                       		connect();
+                			$("select").each(function(){
+                				var vraag = $(this).attr("id");
+                				findVraag(vraag, function(result) {
+                					$("#"+vraag).val(result.antwoord).slider('refresh');
+                				});	
+                				
+                				$(this).change(function(){
+                					var antwoord = $(this).val();
+                					updateVraag(vraag, antwoord);
+                				});
+                			});
+                			
+                			
+                		</script>
+                		
                         <div data-role="content" data-theme="a">
                                <h1>Ondervoeding 1/12</h1>
-			                   <div data-role="fieldcontain" class="switch">
-									<label for="slider2">Binnen 6 maanden afgevallen?</label>
-									<select name="slider2" id="slider2" data-role="slider">
+			                   
+									<label for="verdrietig">Voelt u zich verdrietig, neerslachtig of depressief?</label>
+									<select name="verdrietig" id="verdrietig" data-role="slider">
 										<option value="0">Nee</option>
 										<option value="1">Ja</option>
 									</select>
-								</div>
 								
-			                   <div data-role="fieldcontain">
-									<label for="slider2">Zit kleding losser?</label>
-									<select name="slider2" id="slider2" data-role="slider">
+								
+			                   
+									<label for="boos">Voelt u zich boos, rusteloos en/of angstig?</label>
+									<select name="boos" id="boos" data-role="slider">
 										<option value="0">Nee</option>
 										<option value="1">Ja</option>
 									</select>
-							   </div>
 							   
-			                   <div data-role="fieldcontain">
-									<label for="slider2">Minder eetlust?</label>
-									<select name="slider2" id="slider2" data-role="slider">
-										<option value="0">Nee</option>
-										<option value="1">Ja</option>
-									</select>
-							   </div>
 							   
-			                   <div data-role="fieldcontain">
-									<label for="slider2">Hulp van anderen nodig bij eten?</label>
-									<select name="slider2" id="slider2" data-role="slider">
+			                   
+									<label for="interesse">Trekt u zich de laatste maand vaker terug of heeft u minder interesse in uw omgeving?</label>
+									<select name="interesse" id="interesse" data-role="slider">
 										<option value="0">Nee</option>
 										<option value="1">Ja</option>
 									</select>
-							   </div>
+							   
 							   
 								<div class="ui-body ui-body-b">
 									<fieldset class="ui-grid-b">
-										<div class="ui-block-a"><button type="submit" data-icon="delete" data-theme="c">Stoppen</button></div>
-										<div class="ui-block-b"><button type="submit" data-icon="arrow-l" data-theme="a">Vorige</button></div>
+										<div class="ui-block-a"><a href="../index.html" data-role="button" data-theme="c" data-icon="delete">Stoppen</a></div>
+										<div class="ui-block-b"><a href="ondervoeding.html" data-role="button" data-theme="a" data-icon="arrow-l">Vorige</a></div>
 										<div class="ui-block-c"><button type="submit" data-icon="arrow-r" data-theme="d">Volgende</button></div>
 								    </fieldset>
 								</div>
