@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+		<link rel="stylesheet" href="js/jquerymobile/jquery.mobile-1.4.0.min.css" />
+		<script src="js/jquery.js"></script>
+		<script src="js/jquerymobile/jquery.mobile-1.4.0.min.js"></script>
+        <title></title>
+        
+        <script>
+		$(function(){
+		    // Bind the swiperightHandler callback function to the swipe event on div.box
+		  $( "#listitem" ).on( "swipeleft", swiperightHandler );
+		 
+		  // Callback function references the event target and adds the 'swiperight' class to it
+		  function swiperightHandler( event ){
+		     $.mobile.changePage("#two", {transition: "slide"});
+		  }
+		});
+        </script>
+    </head>
+    <body>
+        <!-- Start of first page: #one -->
+		<div data-role="page" id="splash" class="transition page stage-center">
+		        <div class="app">
+        	<div class="logo"> </div>
+            <h1>Risico Signalering</h1>
+            <div id="deviceready" class="blink">
+                <p class="event listening">Bezig laden applicatie</p>
+                <p class="event received">Swipe naar links ></p>
+                <ul data-role="listview" data-inset="true" data-theme="c">
+                	<li id="listitem">Swipe Right to view Page 1</li>
+            	</ul>
+            </div>
+        </div>
+		
+		</div><!-- /page one -->
+		
+		
+		<!-- Start of second page: #two -->
+		<div data-role="page" id="two" class="transition page stage-right">
+		main menu
+		</div><!-- /page two -->
+		
+
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript">
+            app.initialize();
+        </script>
+    </body>
+</html>
